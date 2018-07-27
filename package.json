@@ -1,0 +1,18 @@
+{
+  "name": "echo",
+  "version": "1.0.0",
+  "description": "Erl's Portfolio",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "keywords": [],
+  "author": "Erl",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^4.16.2",
+    "webpack-cli": "^3.1.0"
+  }
+}
