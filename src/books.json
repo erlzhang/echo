@@ -1,0 +1,26 @@
+{
+  "leaf": {
+    "title": "叶夕青兮",
+    "start": 2012,
+    "end": 2018,
+    "cover": "leaf.jpg"
+  },
+  "corner": {
+    "title": "墙角",
+    "start": 2016,
+    "end": 2018,
+    "cover": "corner.jpg"
+  },
+  "flower": {
+    "title": "花与镜",
+    "start": 2012,
+    "end": 2013,
+    "cover": "flower.jpg"
+  },
+  "younger": {
+    "title": "凝遥集",
+    "start": 2007,
+    "end": 2008,
+    "cover": "younger.jpg"
+  }
+}
