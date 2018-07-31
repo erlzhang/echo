@@ -1,8 +1,8 @@
 const bookConfig = require('./books.json')
 
 import Slider from './Slider.js'
-//import Slide from './Slide.js'
 import Book from './Book.js'
+import Sidebar from './Sidebar.js'
 
 const books = []
 
@@ -13,6 +13,8 @@ for( let b in bookConfig ) {
   book.id = ++i
   books.push(book)
 }
+
+const sidebar = new Sidebar(books)
 
 const slider = new Slider(books)
 slider.revealSlide()

@@ -1,4 +1,5 @@
 import { TweenMax, TimelineLite } from 'gsap/TweenMax'
+import Ele from './ele.js'
 
 export default class Slide {
 
@@ -16,7 +17,7 @@ export default class Slide {
     this.show()
 
     if( this.timeLine ) {
-      this.timeLine.play()
+      this.timeLine.restart()
       return
     } 
 
@@ -65,29 +66,26 @@ export default class Slide {
   }
 
   initContent () {
-    let container = document.createElement("div")
-    container.classList.add("slide__section")
+    let container = Ele.create("div", "slide__section")
 
-    if( this.isEven(this.book.id) ) {
-      container.appendChild(this.textContent())
-      container.appendChild(this.imgContent())
+    if( this.isEven( this.book.id ) ) {
+      container.appendChild( this.textContent() )
+      container.appendChild( this.imgContent() )
     } else {
-      container.appendChild(this.imgContent())
-      container.appendChild(this.textContent()) 
+      container.appendChild( this.imgContent() )
+      container.appendChild( this.textContent() ) 
     }
     this.content = this.slider.mainContainer.appendChild(container);
   }
 
   linkContent() {
-    let link = document.createElement("a")
-    link.href = this.book.url()
-    link.classList.add("slide__link")
-    return link
+    return Ele.create("a", "slide__link", "", {
+      href: this.book.url()
+    })
   }
 
   textContent() {
-    let container = document.createElement("div")
-    container.classList.add("slide__text")
+    let container = Ele.create("div", "slide__text")
     container.classList.add( this.isEven(this.book.id) ? "slide__text_left" : "slide__text_right" )
 
     container.appendChild(this.linkContent())
@@ -100,58 +98,38 @@ export default class Slide {
   }
 
   descContent () {
-    let desc = document.createElement("div")
-    desc.classList.add("slide__desc");
-    desc.innerText = this.book.desc
-    return desc 
+    return Ele.create("div", "slide__desc", this.book.desc)
   }
 
   titleContent () {
-    let container = document.createElement("div"),
-        inner = document.createElement("div"),
-        text = document.createElement("h1")
+    let container = Ele.create("div", "slide__title"),
+        text = Ele.create("h1", "slide__title_text", this.book.title),
+        inner = Ele.create("div", "slide__title_inner")
 
-    container.classList.add("slide__title")
-
-    text.innerText = this.book.title
-    text.classList.add("slide__title_text")
-
-    inner.classList.add("slide__title_inner")
     this.titleText = inner.appendChild(text)
-
     this.titleInner = container.appendChild(inner)
-
     return container
   }
 
   timeContent () {
-    let container = document.createElement("div"),
-        inner = document.createElement("div"),
-        text = document.createElement("p")
+    let container = Ele.create("div", "slide__time"),
+        text = Ele.create("p", "slide__time_text", this.book.time()),
+        inner = Ele.create("div", "slide__time_inner")
 
-    container.classList.add("slide__time")
-
-    text.innerText = this.book.time()
-    text.classList.add("slide__time_text")
-
-    inner.classList.add("slide__time_inner")
     this.timeText = inner.appendChild(text)
-
     this.timeInner = container.appendChild(inner)
 
     return container
   }
 
   imgContent() {
-    let container = document.createElement("div")
-    container.classList.add("slide__img")
-
-    let img = new Image()
-    img.src = this.book.imageUrl()
-
-    let placeholder = document.createElement("div")
-    placeholder.classList.add("slide__img_placehold")
-    placeholder.style = "background-image: url('" + img.src + "');"
+    let container = Ele.create("div", "slide__img"),
+        img = Ele.create("img", "", "", {
+          src: this.book.imageUrl()
+        }),
+        placeholder = Ele.create("div", "slide__img_placehold", "", {
+          style: "background-image: url('" + this.book.imageUrl() + "')"
+        })
 
     container.appendChild(this.linkContent())
     container.appendChild(img)

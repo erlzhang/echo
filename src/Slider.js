@@ -1,4 +1,5 @@
 import Slide from './Slide.js'
+import Ele from './ele.js'
 
 export default class Slider {
   constructor (books) {
@@ -65,14 +66,11 @@ export default class Slider {
   }
 
   initContent () {
-    let container = document.createElement("div")
-    container.classList.add("slide")
 
-    this.mainContainer = document.body.appendChild(container)
+    this.mainContainer = document.body.appendChild( Ele.create("div", "slide") )
 
-    let toolContainer = document.createElement("ul")
-    toolContainer.classList.add("slide__controls")
-    this.controlContainer = document.body.appendChild(toolContainer)
+    this.controlContainer = document.body.appendChild( Ele.create("ul", "slide__controls") )
+
     this.initPrevBtn()
   }
 
@@ -82,9 +80,8 @@ export default class Slider {
       let slide = new Slide(book, this)
       this.slides.push(slide)
 
-      let control = document.createElement("li")
-      control.classList.add("slide__control")
-      control = this.controlContainer.appendChild(control)
+      let control = this.controlContainer.appendChild( Ele.create("li", "slide__control") )
+
       this.controls.push(control)
       slide.control = control
 
@@ -132,18 +129,14 @@ export default class Slider {
   }
 
   initPrevBtn () {
-    let container = document.createElement("div")
-    container.classList.add("slide__control__icon", "slide__control_top")
-    container.innerHTML = '<svg width="40" height="40"><circle class="circle-progress" r="18" cy="20" cx="20"  stroke-linejoin="round" stroke-linecap="round" ></cricle></svg><span class="slide__control_arrow slide__control_up"></span>'
-    this.prevBtn = this.controlContainer.appendChild(container)
+    this.prevBtn = this.controlContainer.appendChild( Ele.create("div", "slide__control__icon", '<svg width="40" height="40"><circle class="circle-progress" r="18" cy="20" cx="20"  stroke-linejoin="round" stroke-linecap="round" ></cricle></svg><span class="slide__control_arrow slide__control_up"></span>') )
+    this.prevBtn.classList.add("slide__control__top")
     this.prevBtn.addEventListener("click", () => this.prevSlide())
   }
 
   initNextBtn () {
-    let container = document.createElement("div")
-    container.classList.add("slide__control__icon", "slide__control_bottom")
-    container.innerHTML = '<svg width="40" height="40"><circle class="circle-progress" r="18" cy="20" cx="20"  stroke-linejoin="round" stroke-linecap="round" ></cricle></svg><span class="slide__control_arrow slide__control_down"></span>'
-    this.nextBtn = this.controlContainer.appendChild(container)
+    this.nextBtn = this.controlContainer.appendChild( Ele.create("div", "slide__control__icon", '<svg width="40" height="40"><circle class="circle-progress" r="18" cy="20" cx="20"  stroke-linejoin="round" stroke-linecap="round" ></cricle></svg><span class="slide__control_arrow slide__control_down"></span>') )
+    this.nextBtn.classList.add("slide__control__bottom")
     this.nextBtn.addEventListener("click", () => this.nextSlide())
   }
 }
