@@ -5,6 +5,8 @@ export default class Sidebar {
   constructor (books) {
     this.books = books
     this.initContent()
+    this.initToggler()
+    this.isOpen = false
   }
 
   initContent () {
@@ -25,5 +27,25 @@ export default class Sidebar {
     container.appendChild( Ele.create("div", "sidebar__copyright", "<p>文章版权所有，盗版必究！</p><p>All rights reserved.</p>") )
 
     this.container = document.body.appendChild(container)
+  }
+
+  initToggler () {
+    this.toggler = document.body.appendChild( Ele.create("div", "sidebar__toggler", '<span class="sidebar__toggler_top"></span><span class="sidebar__toggler_middle"></span><span class="sidebar__toggler_bottom"></span>') )
+
+    this.toggler.addEventListener("click", () => {
+      this.toggle()
+    })
+  } 
+
+  toggle () {
+    if( this.isOpen ) {
+      this.container.classList.remove("active") 
+      this.toggler.classList.remove("active")
+      this.isOpen = false
+    } else {
+      this.container.classList.add("active") 
+      this.toggler.classList.add("active")
+      this.isOpen = true
+    }
   }
 }
