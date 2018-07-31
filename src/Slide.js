@@ -13,12 +13,12 @@ export default class Slide {
   }
 
   reveal () {
+    this.show()
+
     if( this.timeLine ) {
-      this.timeLine.restart()
+      this.timeLine.play()
       return
     } 
-
-    this.show()
 
     this.timeLine = new TimelineLite();
 

@@ -13,6 +13,55 @@ export default class Slider {
 
     this.direction = true
     this.inAnimation = false
+
+    this.bindKeyEvent()
+    this.bindMouseEvent()
+    this.bindTouchEvent()
+  }
+
+  bindKeyEvent () {
+    document.addEventListener("keyup", (event) => {
+      if( event && ( event.keyCode == 39 || event.keyCode == 40 ) ) {
+        this.direction = true
+        this.changeSlide() 
+      }
+      if( event && ( event.keyCode == 38 || event.keyCode == 37 ) ) {
+        this.direction = false
+        this.changeSlide()
+      } 
+    })
+  }
+
+  bindMouseEvent () {
+    document.addEventListener("mousewheel", (event) => {
+      this.direction = event.wheelDelta < 0
+      this.changeSlide()
+    })
+    document.addEventListener("DOMMouseScroll", (event) => {
+      this.direction = event.detail == 3  
+      this.changeSlide()
+    })
+  }
+
+  bindTouchEvent () {
+    let self = this
+    self.touchtimes = 0
+    self.touchx = []
+    document.addEventListener("touchstart", (event) => {
+      self.touchtimes ++ ;
+      self.touchx[self.touchtimes] = event.changedTouches[0].clientY;  
+    })
+
+    document.addEventListener("toushend", (event) => {
+      self.touchtimes ++ ;
+      self.touchx[self.touchtimes] = event.changedTouches[0].clientY;
+
+      if( ( Math.abs(self.touchx[self.touchtimes] - self.touchx[self.touchtimes-1]) > 50 ) && ( event.target.id != "sidebarToggler" ) ) {
+        self.direction = touchx[touchtimes] > touchx[touchtimes - 1];
+        self.changeSlide();
+      }
+    
+    })
   }
 
   initContent () {
@@ -48,7 +97,7 @@ export default class Slider {
   move () {
     if( this.direction ) {
       this.current ++
-      if( this.current >= this.len ) {
+      if( this.current > this.len - 1 ) {
         this.current = 0
       }
     } else {
@@ -57,6 +106,7 @@ export default class Slider {
         this.current = this.len - 1
       }
     }
+    console.log(this.current)
     this.revealSlide()
   }
 
